@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -49,6 +50,14 @@ class MainActivity : ComponentActivity() {
             ) {
                 dotaPrew()
                 description()
+                video()
+//                Box(
+//                    modifier = Modifier
+//                        .padding(start=24.dp, end=24.dp)
+//                ) {
+//                    video()
+//
+//                }
             }
             Column(
                 modifier = Modifier.fillMaxHeight(0.45f),
@@ -92,14 +101,14 @@ private fun dotaLogo() {
         Box(
             modifier = Modifier
                 .background(colorResource(R.color.backColor))
-                .size(width = 88.dp, height = 95.dp),
+                .size(width = 88.dp, height = 94.5.dp),
             contentAlignment = Alignment.Center
         ) {
             Image(
-                painter = painterResource(id = R.drawable.dota_logo),
+                painter = painterResource(id = R.drawable.logo_dota3),
                 contentDescription = "image",
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.size(54.dp)
+                modifier = Modifier.fillMaxSize()
                 )
         }
     }
@@ -128,5 +137,48 @@ private fun description() {
                     )
             )
         }
+    }
+}
+
+@Composable
+private fun video() {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(start=24.dp, top=10.dp),
+    ) {
+        Box(
+            modifier = Modifier.size(width = 240.dp, height = 135.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.screen),
+                contentDescription = "screen1",
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier.size(width=240.dp, height=135.dp).padding(15.dp)
+            )
+
+            Image(
+                painter = painterResource(id = R.drawable.ellipse),
+                contentDescription = "ellipse",
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier.size(45.dp)
+            )
+
+            Image(
+                painter = painterResource(id = R.drawable.arrow),
+                contentDescription = "arrow",
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier.size(24.dp)
+            )
+        }
+
+        Column(){
+            Image(
+                painter = painterResource(id = R.drawable.screen2),
+                contentDescription = "screen2",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.size(width=240.dp, height=135.dp)
+            )
+        }
+
     }
 }
