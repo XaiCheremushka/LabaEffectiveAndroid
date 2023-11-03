@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -26,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.modifier.modifierLocalMapOf
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -49,21 +52,16 @@ class MainActivity : ComponentActivity() {
 
             ) {
                 dotaPrew()
-                description()
-                video()
-//                Box(
-//                    modifier = Modifier
-//                        .padding(start=24.dp, end=24.dp)
-//                ) {
-//                    video()
-//
-//                }
             }
             Column(
-                modifier = Modifier.fillMaxHeight(0.45f),
-                verticalArrangement = Arrangement.Bottom
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(start = 24.dp),
             ){
                 dotaLogo()
+                description()
+                video()
+                reviewAndRatings()
             }
         }
     }
@@ -93,10 +91,9 @@ fun dotaPrew() {
 @Composable
 private fun dotaLogo() {
     // Card - также контейнер для размещения объектов, но в нем меньше возможностей и больше строгой разметки
-    Card(
-        modifier = Modifier
-            .size(width = 132.dp, height = 139.dp)
-            .padding(22.dp)
+    Box(
+        modifier = Modifier.fillMaxHeight(0.45f),
+        contentAlignment = Alignment.BottomStart
     ){
         Box(
             modifier = Modifier
@@ -109,8 +106,19 @@ private fun dotaLogo() {
                 contentDescription = "image",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
-                )
+            )
         }
+//        Card(
+//            modifier = Modifier
+//                .size(width = 132.dp, height = 139.dp)
+//                .padding(22.dp)
+//        ){
+
+//        }
+//        Box(){
+//
+//        }
+
     }
 }
 
@@ -118,11 +126,12 @@ private fun dotaLogo() {
 @Composable
 private fun description() {
     Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 30.dp, end = 24.dp),
+        horizontalArrangement = Arrangement.Start
     ) {
         Box(
-            modifier = Modifier.size(height = 190.dp, width = 327.dp),
             contentAlignment = Alignment.BottomCenter
         ){
             Text(
@@ -143,7 +152,9 @@ private fun description() {
 @Composable
 private fun video() {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(start=24.dp, top=10.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 10.dp),
     ) {
         Box(
             modifier = Modifier.size(width = 240.dp, height = 135.dp),
@@ -153,7 +164,9 @@ private fun video() {
                 painter = painterResource(id = R.drawable.screen),
                 contentDescription = "screen1",
                 contentScale = ContentScale.FillBounds,
-                modifier = Modifier.size(width=240.dp, height=135.dp).padding(15.dp)
+                modifier = Modifier
+                    .size(width = 240.dp, height = 135.dp)
+                    .padding(end = 15.dp)
             )
 
             Image(
@@ -181,4 +194,121 @@ private fun video() {
         }
 
     }
+}
+
+@Composable
+private fun reviewAndRatings() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(end = 24.dp)
+    ) {
+        Text(
+            text = "Review & Ratings",
+            style = TextStyle(
+                fontSize = 16.sp,
+//            fontFamily = FontFamily(Font(R.font.sk-modernist)),
+                fontWeight = FontWeight(700),
+                color = Color(0xFFEEF2FB),
+
+                letterSpacing = 0.6.sp,
+            )
+        )
+
+            Row(modifier = Modifier.size(width=171.dp, height=58.dp)) {
+                Text(
+                    text = "4.9",
+                    style = TextStyle(
+                        fontSize = 48.sp,
+//                    fontFamily = FontFamily(Font(R.font.sk-modernist)),
+                        fontWeight = FontWeight(700),
+                        color = Color(0xFFFFFFFF),
+                        )
+                )
+                Column(modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(start = 16.dp, top = 10.dp),
+                    verticalArrangement = Arrangement.Center) {
+
+                    Image(
+                        painter = painterResource(id = R.drawable.stars),
+                        contentDescription = "stars",
+                        contentScale = ContentScale.FillBounds,
+                        modifier = Modifier.size(width = 76.dp, height = 14.dp)
+                    )
+
+                    Text(
+                        text = "70M Reviews",
+                        style = TextStyle(
+                            fontSize = 12.sp,
+//                            fontFamily = FontFamily(Font(R.font.sk-modernist)),
+                            fontWeight = FontWeight(400),
+                            color = Color(0xFFA8ADB7),
+                            letterSpacing = 0.5.sp,
+                        )
+                    )
+                }
+            }
+
+        Box(
+            modifier = Modifier
+                .padding(end = 24.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
+            Box(
+                modifier = Modifier.padding(bottom=16.dp)
+            ) {
+                Row() {
+                    Image(
+                        painter = painterResource(id = R.drawable.roma),
+                        contentDescription = "roma",
+                        contentScale = ContentScale.FillBounds,
+                        modifier = Modifier.size(36.dp)
+                    )
+                    Column (
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .padding(start = 16.dp),
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = "Auguste Conte",
+                            style = TextStyle(
+                                fontSize = 16.sp,
+//                                fontFamily = FontFamily(Font(R.font.sk-modernist)),
+                                fontWeight = FontWeight(400),
+                                color = Color(0xFFFFFFFF),
+                                letterSpacing = 0.5.sp,
+                            )
+                        )
+
+                        Text(
+                            text = "February 14, 2019",
+                            style = TextStyle(
+                                fontSize = 12.sp,
+//                                fontFamily = FontFamily(Font(R.font.sk-modernist)),
+                                fontWeight = FontWeight(400),
+                                color = Color(0x66FFFFFF),
+                                letterSpacing = 0.5.sp,
+                            )
+                        )
+                    }
+                }
+            }
+            Text(
+                text = "“Once you start to learn its secrets, there’s a wild and exciting variety of play here that’s unmatched, even by its peers.”",
+                style = TextStyle(
+                    fontSize = 12.sp,
+                    lineHeight = 20.sp,
+//                        fontFamily = FontFamily(Font(R.font.sk-modernist)),
+                    fontWeight = FontWeight(400),
+                    color = Color(0xFFA8ADB7),
+
+                    letterSpacing = 0.5.sp,
+                )
+            )
+        }
+    }
+
+
 }
